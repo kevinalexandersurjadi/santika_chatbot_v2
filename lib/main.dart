@@ -3,7 +3,7 @@ import 'package:santika_chatbot_v2/aboutapp.dart';
 import 'package:santika_chatbot_v2/chatbot.dart';
 import 'package:santika_chatbot_v2/splashScreen.dart';
 
-//void main() => runApp(MyApp());
+void main() => runApp(SplashScreenPage());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -19,7 +19,10 @@ class MyApp extends StatelessWidget {
       },
       title: 'My Santika',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        //primarySwatch: Colors.deepOrange,
+        backgroundColor: Colors.grey,
+//        buttonColor: Color.fromARGB(255, 127, 255, 212), //aquamarine
+        buttonColor: Color.fromARGB(255, 184, 50, 39), //
       ),
       home: MyHomePage(title: 'Some page in My Santika'),
     );
@@ -37,32 +40,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      appBar: AppBar(
-//        title: Text(widget.title),
-//      ),
-//      body: Center(
-//        child: Column(
-//          mainAxisAlignment: MainAxisAlignment.center,
-//          children: <Widget>[
-//            Text(
-//              'Content in page',
-//            ),
-//          ],
-//        ),
-//      ),
-//      floatingActionButton: FloatingActionButton(
-//        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatBot())),
-//        tooltip: 'Increment',
-//        child: Icon(Icons.add),
-//      ), // This trailing comma makes auto-formatting nicer for build methods.
-//    );
-//  }
-
-
-
   @override
   Widget build(BuildContext context) {
     var assetImage = AssetImage('assets/santika_2_2.png');
@@ -71,79 +48,86 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return new Scaffold(
       body: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(color: Colors.brown),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        CircleAvatar(
-                          backgroundColor: Color.fromARGB(255, 65, 57, 55),
-                          radius: 50.0,
-                          child: image,
+        fit: StackFit.expand,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircleAvatar(
+                        backgroundColor: Color.fromARGB(255, 65, 57, 55),
+                        radius: 50.0,
+                        child: image,
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 10.0),
+                      ),
+                      Text(
+                        "Ashka Bot",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold
                         ),
-                        Padding(padding: EdgeInsets.only(top: 10.0),
-                        ),
-                        Text(
-                          "Ashka Bot",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Padding(padding: new EdgeInsets.only(top: 50.0),),
-                        RaisedButton(
+                      ),
+                      Padding(padding: new EdgeInsets.only(top: 50.0),),
+                      ButtonTheme(
+                        minWidth: 130.0,
+                        child: RaisedButton(
                           shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.all(Radius.circular(5.0))
+                            borderRadius: new BorderRadius.all(
+                              Radius.circular(50.0)
+                            )
                           ),
                           child: new Text(
                             "Chat Bot",
                             style: TextStyle(
-                              color: Colors.white
+                                color: Colors.white
                             )
                           ),
-                          color: Color.fromARGB(255, 100, 88, 85),
+                          color: Theme.of(context).buttonColor,
                           //onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatBot())),
-                          onPressed: () => Navigator.pushNamed(context, '/chat'),
+                          onPressed: () =>
+                            Navigator.pushNamed(context, '/chat'),
                         ),
-                        RaisedButton(
-                          onPressed: (){
+                      ),
+                      ButtonTheme(
+                        minWidth: 130.0,
+                        child: RaisedButton(
+                          onPressed: () {
                             print("About App button pressed");
                             //Navigator.push(context, MaterialPageRoute(builder: (context) => AboutApp()));
                             Navigator.pushNamed(context, '/about');
                           },
-                          color: Color.fromARGB(255, 100, 88, 85),
+                          color: Theme.of(context).buttonColor,
                           shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.all(Radius.circular(5.0))
+                            borderRadius: new BorderRadius.all(
+                              Radius.circular(50.0)
+                            )
                           ),
                           child: new Text(
-                              "About This App",
-                              style: TextStyle(
-                                  color: Colors.white
-                              )),
+                            "About This App",
+                            style: TextStyle(
+                              color: Colors.white
+                            )
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-
-              ],
-            )
-          ]
+              ),
+            ],
+          )
+        ]
       ),
     );
   }
-
-//  @override
-//  void initState() {
-//    Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreenPage()));
-//  }
 }
