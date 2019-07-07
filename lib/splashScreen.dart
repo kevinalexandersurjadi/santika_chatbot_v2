@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:santika_chatbot_v2/chatbot.dart';
 import 'package:santika_chatbot_v2/main.dart';
+import 'package:santika_chatbot_v2/onboarding.dart';
 
 void main() => runApp(SplashScreenPage());
 
@@ -15,6 +16,7 @@ class SplashScreenPage extends StatelessWidget{
       initialRoute: '/',
       routes: {
         //'/' : (context) => SplashScreenPage(),
+        '/onboard' : (context) => OnBoardingPage(),
         '/homepage' : (context) => MyApp(),
         '/chat' : (context) => ChatBot(),
         '/about' : (context) => AboutApp(),
@@ -43,12 +45,12 @@ class _SplashScreenState extends State<SplashScreen> {
         if (_start < 1){
           timer.cancel();
 
-          Navigator.pushReplacementNamed(context, '/homepage');
+          Navigator.pushReplacementNamed(context, '/onboard');
           //Navigator.popAndPushNamed(context, "/homepage");
           //Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
           //Navigator.of(context).pop(true);
         } else {
-          print("Secconds: " + _start.toString());
+          print("Seconds: " + _start.toString());
           _start = _start - 1;
         }
       }
@@ -98,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       Padding(padding: EdgeInsets.only(top: 10.0),
                       ),
                       Text(
-                        "Ashka Bot",
+                        "Berscha Bot",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24.0,
@@ -120,7 +122,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
                     ),
-                    Text("MySantika App Chatbot",
+                    Text("MySantika Chatbot App",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
