@@ -137,6 +137,11 @@ class ChatScreenState extends State<ChatScreen>{
           ),
         ),
         backgroundColor: BershcaColors.greenHarmony,
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.info_outline), onPressed: () {
+            Navigator.pushNamed(context, '/about');
+          },),
+        ],
       ),
       body: new Column(
         children: <Widget>[
