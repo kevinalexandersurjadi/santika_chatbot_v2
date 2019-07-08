@@ -189,6 +189,7 @@ class ChatScreenState extends State<ChatScreen>{
                           "Tentang Santika Premiere Slipi",
                           overflow: TextOverflow.ellipsis,
                           style: new TextStyle(
+                            fontFamily: 'Montserrat',
                             color: BershcaColors.purpleHighTech,
                           ),
                         ),
@@ -218,6 +219,7 @@ class ChatScreenState extends State<ChatScreen>{
                           "Kamar Hotel",
                           overflow: TextOverflow.ellipsis,
                           style: new TextStyle(
+                            fontFamily: 'Montserrat',
                             color: BershcaColors.purpleHighTech,
                           ),
                         ),
@@ -247,6 +249,7 @@ class ChatScreenState extends State<ChatScreen>{
                           "Ruang Rapat",
                           overflow: TextOverflow.ellipsis,
                           style: new TextStyle(
+                            fontFamily: 'Montserrat',
                             color:BershcaColors.purpleHighTech,
                           ),
                         ),
@@ -276,6 +279,7 @@ class ChatScreenState extends State<ChatScreen>{
                           "Cek Kamar",
                           overflow: TextOverflow.ellipsis,
                           style: new TextStyle(
+                            fontFamily: 'Montserrat',
                             color: BershcaColors.purpleHighTech,
                           ),
                         ),
@@ -317,6 +321,7 @@ class ChatScreenState extends State<ChatScreen>{
                 decoration: new InputDecoration.collapsed(
                   hintText: "Send a message",
                   hintStyle: new TextStyle(
+                    fontFamily: 'Montserrat',
                     color: Colors.black,
                   )
                 ),
@@ -495,6 +500,7 @@ class ChatMessage extends StatelessWidget{
                   child: new Text(
                     text,
                     style: TextStyle(
+                      fontFamily: 'Montserrat',
                       fontSize: 15.0,
                       color: Colors.white,
                     ),
