@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
 //        buttonColor: Color.fromARGB(255, 127, 255, 212), //aquamarine
         buttonColor: Color.fromARGB(255, 184, 50, 39), //
       ),
-      home: ChatScreen(),
+      home: SplashScreen(),
     );
   }
 }

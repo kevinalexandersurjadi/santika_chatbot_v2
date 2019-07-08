@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
+import 'package:santika_chatbot_v2/config/api.dart';
 import 'package:santika_chatbot_v2/models/chat_log.dart';
 import 'package:santika_chatbot_v2/consts/color.dart';
 import 'dart:async';
@@ -112,7 +113,7 @@ class ChatScreenState extends State<ChatScreen>{
 
   _start() async {
     await _getInitData();
-    ChatMessage initialMessage = ChatMessage(text: 'Hi, saya Bershca! Ada yang bisa saya bantu?', who: 1);
+    ChatMessage initialMessage = ChatMessage(text: 'Hi, saya Bershca! Silakan tanyakan informasi yang ingin Anda ketahui.', who: 1);
     Future.delayed(Duration(milliseconds: 750), () {
       setState(() {
         _message.insert(0, initialMessage);
@@ -345,7 +346,7 @@ class ChatScreenState extends State<ChatScreen>{
 
     ChatMessage messageResponse;
 
-    String url = "https://aiml-server-heroku.herokuapp.com/";
+    String url = ApiConfig.baseUrl;
 
     String mResponse = "";
     String mResFooter = "";
@@ -355,7 +356,7 @@ class ChatScreenState extends State<ChatScreen>{
       print("Text        : " + text);
       print("Url         : " + url);
       print("Encoded Url : " + Uri.encodeFull(url));
-      var res = await http.get(Uri.encodeFull(url), headers: {"Authentication": "Bearer329e2f262b9e03c89379284ca9735332fb151575"});
+      var res = await http.get(Uri.encodeFull(url), headers: {"Authentication": "Bearer${ApiConfig.authToken}"});
 
       print("Done waiting!");
 
