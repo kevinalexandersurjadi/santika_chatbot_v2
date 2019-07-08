@@ -1,46 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:santika_chatbot_v2/chatbot.dart';
-import 'package:santika_chatbot_v2/main.dart';
+import 'package:santika_chatbot_v2/consts/color.dart';
 
-void main() => runApp(AboutApp());
-
-class AboutApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        //'/' : (context) => SplashScreenPage(),
-        '/homepage' : (context) => MyApp(),
-        '/chat' : (context) => ChatBot(),
-        '/about' : (context) => AboutApp(),
-      },
-      title: 'My Santika',
-
-      theme: ThemeData(
-        //primarySwatch: Colors.orange,
-      ),
-      home: MyHomePage(title: 'Tentang Aplikasi'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +9,13 @@ class _MyHomePageState extends State<MyHomePage> {
     var image = new Image(image: assetImage, width: 64.0, height: 64.0,);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-        backgroundColor: Colors.black,
+        title: Text(
+          'Tentang Aplikasi',
+          style: TextStyle(
+            fontFamily: 'Montserrat'
+          ),
+        ),
+        backgroundColor: BershcaColors.greenHarmony,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,

@@ -2,35 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:santika_chatbot_v2/ChatLog.dart';
-import 'package:santika_chatbot_v2/aboutapp.dart';
+import 'package:santika_chatbot_v2/consts/color.dart';
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:santika_chatbot_v2/database.dart';
-import 'package:santika_chatbot_v2/main.dart';
-
-void main() => runApp(new ChatBot());
-
-class ChatBot extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        //'/' : (context) => SplashScreenPage(),
-        '/homepage' : (context) => MyApp(),
-        '/chat' : (context) => ChatBot(),
-        '/about' : (context) => AboutApp(),
-      },
-      title: 'My Santika Helper',
-      theme: ThemeData(
-        buttonColor: Color.fromARGB(127, 211, 211, 211), //lightgray
-        backgroundColor: Color.fromARGB(255, 184, 50, 39), //
-        accentColor: Color.fromARGB(255, 0, 0, 0),
-      ),
-      home: new ChatScreen(),
-    );
-  }
-}
 
 class ChatScreen extends StatefulWidget{
   @override
@@ -145,165 +121,167 @@ class ChatScreenState extends State<ChatScreen>{
 
     final width = MediaQuery.of(context).size.width;
 
-    return WillPopScope(
-      //onWillPop: _baqckButtonPressed,
-      child: new Scaffold(
-        backgroundColor: Colors.white,
-        appBar: new AppBar(
-          title: new Text("My Santika Chatroom"),
-          backgroundColor: Theme.of(context).accentColor,
+    return new Scaffold(
+      backgroundColor: Colors.white,
+      appBar: new AppBar(
+        title: new Text(
+          "Bershca",
+          style: TextStyle(
+            fontFamily: 'Montserrat'
+          ),
         ),
-        body: new Column(
-          children: <Widget>[
-            new Flexible(
-              child: new ListView.builder(
-                padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
-                reverse: true,
-                itemBuilder: (_, int index) => _message[index],
-                itemCount: _message.length,
-              ),
+        backgroundColor: BershcaColors.greenHarmony,
+      ),
+      body: new Column(
+        children: <Widget>[
+          new Flexible(
+            child: new ListView.builder(
+              padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+              reverse: true,
+              itemBuilder: (_, int index) => _message[index],
+              itemCount: _message.length,
             ),
-            //new Divider(height: 1.0,),
-            new Container(
-              width: width,
-              margin: new EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: SingleChildScrollView(
-                //controller: _hideSuggestion,
-                scrollDirection: Axis.horizontal,
-                child: new Center(
-                  child: new Row(
-                    textDirection: TextDirection.ltr,
-                    children: <Widget>[
-                      new GestureDetector(
-                        onTap: (){
-                          _textController.text = "Saya ingin bertanya tentang Santika Premiere Slipi";
-                          setState(() {
-                            _isComposing = true;
-                          });
-                        },
-                        child: new Container(
-                          //width: width/3,
-                          padding: new EdgeInsets.all(8.0),
-                          margin: new EdgeInsets.only(right: 8.0, left: 8.0),
-                          decoration: new BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: new BorderRadius.circular(50.0),
-                            border: new Border.all(
-                              color: Theme.of(context).backgroundColor,
+          ),
+          //new Divider(height: 1.0,),
+          new Container(
+            width: width,
+            margin: new EdgeInsets.only(top: 8.0, bottom: 8.0),
+            child: SingleChildScrollView(
+              //controller: _hideSuggestion,
+              scrollDirection: Axis.horizontal,
+              child: new Center(
+                child: new Row(
+                  textDirection: TextDirection.ltr,
+                  children: <Widget>[
+                    new GestureDetector(
+                      onTap: (){
+                        _textController.text = "Saya ingin bertanya tentang Santika Premiere Slipi";
+                        setState(() {
+                          _isComposing = true;
+                        });
+                      },
+                      child: new Container(
+                        //width: width/3,
+                        padding: new EdgeInsets.all(8.0),
+                        margin: new EdgeInsets.only(right: 8.0, left: 8.0),
+                        decoration: new BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: new BorderRadius.circular(50.0),
+                          border: new Border.all(
+                            color: BershcaColors.purpleHighTech,
+                            width: 1.0,
+                            style: BorderStyle.solid
+                          )
+                        ),
+                        child: new Text(
+                          "Tentang Santika Premiere Slipi",
+                          overflow: TextOverflow.ellipsis,
+                          style: new TextStyle(
+                            color: BershcaColors.purpleHighTech,
+                          ),
+                        ),
+                      ),
+                    ),
+                    new GestureDetector(
+                      onTap: () {
+                        _textController.text = "Saya ingin bertanya tentang Kamar hotel";
+                        setState(() {
+                          _isComposing = true;
+                        });
+                      },
+                      child: new Container(
+                        //width: width/3,
+                        padding: new EdgeInsets.all(8.0),
+                        margin: new EdgeInsets.only(right: 8.0),
+                        decoration: new BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: new BorderRadius.circular(50.0),
+                          border: new Border.all(
+                              color: BershcaColors.purpleHighTech,
                               width: 1.0,
                               style: BorderStyle.solid
-                            )
-                          ),
-                          child: new Text(
-                            "Tentang Santika Premiere Slipi",
-                            overflow: TextOverflow.ellipsis,
-                            style: new TextStyle(
-                              color: Theme.of(context).backgroundColor,
-                            ),
+                          )
+                        ),
+                        child: new Text(
+                          "Kamar Hotel",
+                          overflow: TextOverflow.ellipsis,
+                          style: new TextStyle(
+                            color: BershcaColors.purpleHighTech,
                           ),
                         ),
                       ),
-                      new GestureDetector(
-                        onTap: () {
-                          _textController.text = "Saya ingin bertanya tentang Kamar hotel";
-                          setState(() {
-                            _isComposing = true;
-                          });
-                        },
-                        child: new Container(
-                          //width: width/3,
-                          padding: new EdgeInsets.all(8.0),
-                          margin: new EdgeInsets.only(right: 8.0),
-                          decoration: new BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: new BorderRadius.circular(50.0),
-                            border: new Border.all(
-                                color: Theme.of(context).backgroundColor,
-                                width: 1.0,
-                                style: BorderStyle.solid
-                            )
-                          ),
-                          child: new Text(
-                            "Kamar Hotel",
-                            overflow: TextOverflow.ellipsis,
-                            style: new TextStyle(
-                              color: Theme.of(context).backgroundColor,
-                            ),
+                    ),
+                    new GestureDetector(
+                      onTap: () {
+                        _textController.text = "Saya ingin bertanya tentang Ruang rapat";
+                        setState(() {
+                          _isComposing = true;
+                        });
+                      },
+                      child: new Container(
+                        //width: width/3,
+                        padding: new EdgeInsets.all(8.0),
+                        margin: new EdgeInsets.only(right: 8.0),
+                        decoration: new BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: new BorderRadius.circular(50.0),
+                          border: new Border.all(
+                              color: BershcaColors.purpleHighTech,
+                              width: 1.0,
+                              style: BorderStyle.solid
+                          )
+                        ),
+                        child: new Text(
+                          "Ruang Rapat",
+                          overflow: TextOverflow.ellipsis,
+                          style: new TextStyle(
+                            color:BershcaColors.purpleHighTech,
                           ),
                         ),
                       ),
-                      new GestureDetector(
-                        onTap: () {
-                          _textController.text = "Saya ingin bertanya tentang Ruang rapat";
-                          setState(() {
-                            _isComposing = true;
-                          });
-                        },
-                        child: new Container(
-                          //width: width/3,
-                          padding: new EdgeInsets.all(8.0),
-                          margin: new EdgeInsets.only(right: 8.0),
-                          decoration: new BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: new BorderRadius.circular(50.0),
-                            border: new Border.all(
-                                color: Theme.of(context).backgroundColor,
-                                width: 1.0,
-                                style: BorderStyle.solid
-                            )
-                          ),
-                          child: new Text(
-                            "Ruang Rapat",
-                            overflow: TextOverflow.ellipsis,
-                            style: new TextStyle(
-                              color: Theme.of(context).backgroundColor,
-                            ),
+                    ),
+                    new GestureDetector(
+                      onTap: (){
+                        _textController.text = "Saya ingin melakukan Cek kamar";
+                        setState(() {
+                          _isComposing = true;
+                        });
+                      },
+                      child: new Container(
+                        //width: width/3,
+                        padding: new EdgeInsets.all(8.0),
+                        margin: new EdgeInsets.only(right: 8.0),
+                        decoration: new BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: new BorderRadius.circular(50.0),
+                          border: new Border.all(
+                              color: BershcaColors.purpleHighTech,
+                              width: 1.0,
+                              style: BorderStyle.solid
+                          )
+                        ),
+                        child: new Text(
+                          "Cek Kamar",
+                          overflow: TextOverflow.ellipsis,
+                          style: new TextStyle(
+                            color: BershcaColors.purpleHighTech,
                           ),
                         ),
                       ),
-                      new GestureDetector(
-                        onTap: (){
-                          _textController.text = "Saya ingin melakukan Cek kamar";
-                          setState(() {
-                            _isComposing = true;
-                          });
-                        },
-                        child: new Container(
-                          //width: width/3,
-                          padding: new EdgeInsets.all(8.0),
-                          margin: new EdgeInsets.only(right: 8.0),
-                          decoration: new BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: new BorderRadius.circular(50.0),
-                            border: new Border.all(
-                                color: Theme.of(context).backgroundColor,
-                                width: 1.0,
-                                style: BorderStyle.solid
-                            )
-                          ),
-                          child: new Text(
-                            "Cek Kamar",
-                            overflow: TextOverflow.ellipsis,
-                            style: new TextStyle(
-                              color: Theme.of(context).backgroundColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-          ),
-            new Divider(height: 1.0,),
-            new Container(
-              decoration: new BoxDecoration(
-                color: Theme.of(context).cardColor
-              ),
-              child: _buildTextComposer(),
             ),
-          ],
         ),
+          new Divider(height: 1.0,),
+          new Container(
+            decoration: new BoxDecoration(
+              color: Theme.of(context).cardColor
+            ),
+            child: _buildTextComposer(),
+          ),
+        ],
       ),
     );
   }
@@ -493,7 +471,7 @@ class ChatMessage extends StatelessWidget{
             width: c_width,
             padding: new EdgeInsets.all(10.0),
             decoration: new BoxDecoration(
-              color: who == 1 ? Theme.of(context).buttonColor : Theme.of(context).backgroundColor,
+              color: who == 1 ? BershcaColors.brownWarm : BershcaColors.greenHarmony,
               borderRadius: new BorderRadius.all(Radius.circular(10.0)),
             ),
             child: new Column(
@@ -506,7 +484,7 @@ class ChatMessage extends StatelessWidget{
                     text,
                     style: TextStyle(
                       fontSize: 15.0,
-                      color: who == 0? Colors.white : Colors.black,
+                      color: Colors.white,
                     ),
                   ),
                 ),
