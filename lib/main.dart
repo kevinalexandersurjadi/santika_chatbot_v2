@@ -13,16 +13,12 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       routes: {
-        '/home': (context) => HomeScreen(),
         '/chat': (context) => ChatScreen(),
-        '/howto': (context) => HowtoUseScreen(),
         '/about': (context) => AboutScreen(),
       },
       title: 'Bershca',
       theme: ThemeData(
-        //primarySwatch: Colors.deepOrange,
         backgroundColor: Colors.grey,
-//        buttonColor: Color.fromARGB(255, 127, 255, 212), //aquamarine
         buttonColor: Color.fromARGB(255, 184, 50, 39), //
       ),
       home: SplashScreen(),

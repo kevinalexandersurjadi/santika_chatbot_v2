@@ -25,46 +25,7 @@ class ChatScreenState extends State<ChatScreen>{
 
   final List<ChatMessage> _message = <ChatMessage>[];
 
-  bool initialized = false;
-
-  void _botStartChat() async {
-    String url = "https://aiml-server-heroku.herokuapp.com/hai";
-    var res = await http.get(Uri.encodeFull(url), headers: {"Authentication": "Bearer329e2f262b9e03c89379284ca9735332fb151575"});
-    setState(() {
-      var resBody = json.decode(res.body);
-      int ul = resBody['ul'];
-      ChatMessage messageResponse;
-      List<int> li, footer;
-      List<String> message = new List<String>();
-      List<dynamic> messageChild = new List<dynamic>();
-      List<String> messageFooter = new List<String>();
-      li = new List<int>();
-      footer = new List<int>();
-      String mResponse = "";
-
-      for(int i=0; i<=ul; i++){
-        li.add(resBody['li'][i][i.toString()]);
-        footer.add(resBody['footer'][i][i.toString()]);
-      }
-
-      for(int i=0; i<=li[ul]; i++){
-        message.add(resBody["message"][ul][ul.toString()][i][i.toString()]);
-        mResponse += (i>0 && i<=li[ul]? "  - " : "") + message[i] + (i != li[ul] ? "\n" : "");
-      }
-
-      messageFooter.add(resBody["m_footer"][ul][ul.toString()]);
-      if(messageFooter[0] != ""){
-        mResponse += "\n\n" + messageFooter[0];
-      }
-
-      messageResponse = new ChatMessage(text: mResponse, who: 1,);
-      _saveToDB(1, mResponse);
-      _message.insert(0, messageResponse);
-    });
-  }
-
   Future<void> _getInitData() async{
-//    _botStartChat();
     List<ChatLog> chatLog = await fetchChatLogFromDB();
     print("Print in State: " + chatLog.length.toString());
     int length = chatLog.length;
@@ -77,12 +38,6 @@ class ChatScreenState extends State<ChatScreen>{
         });
       }
     }
-  }
-
-  Future<bool> _backButtonPressed(){
-    print(initialized ? "Initialized" : "Not initialized");
-    initialized = false;
-    //Navigator.pop(context, true);
   }
 
   ScrollController _hideSuggestion;
