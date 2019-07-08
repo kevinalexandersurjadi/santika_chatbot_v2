@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
-import 'package:santika_chatbot_v2/ChatLog.dart';
+import 'package:santika_chatbot_v2/models/chat_log.dart';
 import 'package:santika_chatbot_v2/consts/color.dart';
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:santika_chatbot_v2/database.dart';
+import 'package:santika_chatbot_v2/utils/database.dart';
 
 class ChatScreen extends StatefulWidget{
   @override
@@ -62,8 +62,8 @@ class ChatScreenState extends State<ChatScreen>{
     });
   }
 
-  void _getInitData() async{
-    _botStartChat();
+  Future<void> _getInitData() async{
+//    _botStartChat();
     List<ChatLog> chatLog = await fetchChatLogFromDB();
     print("Print in State: " + chatLog.length.toString());
     int length = chatLog.length;
@@ -107,17 +107,23 @@ class ChatScreenState extends State<ChatScreen>{
         });
       }
     });
+    _start();
+  }
+
+  _start() async {
+    await _getInitData();
+    ChatMessage initialMessage = ChatMessage(text: 'Hi, saya Bershca! Ada yang bisa saya bantu?', who: 1);
+    Future.delayed(Duration(milliseconds: 750), () {
+      setState(() {
+        _message.insert(0, initialMessage);
+      });
+    });
   }
 
   bool _isComposing = false;
 
   @override
   Widget build(BuildContext context) {
-
-    if(!initialized){
-      _getInitData();
-      initialized = true;
-    }
 
     final width = MediaQuery.of(context).size.width;
 

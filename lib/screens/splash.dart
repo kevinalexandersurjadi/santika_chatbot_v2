@@ -1,62 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:santika_chatbot_v2/consts/assets.dart';
-import 'package:santika_chatbot_v2/consts/color.dart';
-import 'package:santika_chatbot_v2/widgets/button.dart';
 
-class HomeScreen extends StatelessWidget {
+import 'package:santika_chatbot_v2/consts/color.dart';
+import 'package:santika_chatbot_v2/consts/assets.dart';
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(milliseconds: 1500), () {
+      Navigator.pushReplacementNamed(context, '/home');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.all(32.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: BershcaColors.gradient1,
-            /// Alternative
-            /// colors: BershcaColors.gradient5
           )
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                BershcaAssets.bershcaVertical3,
-                /// Alternative
-                /// BershcaAssets.bershcaVertical4
-                width: 180.0,
-              ),
-              SizedBox(
-                height: 16.0,
-              ),
-              BershcaButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/chat');
-                },
-                text: 'Start Chatting',
-              ),
-              BershcaButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/howto');
-                },
-                text: 'How to Use',
-              ),
-              BershcaButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/about');
-                },
-                text: 'About',
-              ),
-            ],
-          ),
+          child: Image.asset(BershcaAssets.bershcaHorizontal4),
         ),
-      ),
+      )
     );
   }
 
-  /**
-   * OLD STYLE
-   */
+
+    /**
+     * OLD STYLE
+     */
 //  @override
 //  Widget build(BuildContext context) {
 //    var assetImage = AssetImage('assets/santika_2_2.png');

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:santika_chatbot_v2/how_to_use.dart';
-import 'package:santika_chatbot_v2/aboutapp.dart';
-import 'package:santika_chatbot_v2/chatbot.dart';
-import 'package:santika_chatbot_v2/home.dart';
-import 'package:santika_chatbot_v2/splash_screen.dart';
+import 'package:santika_chatbot_v2/screens/how_to_use.dart';
+import 'package:santika_chatbot_v2/screens/about.dart';
+import 'package:santika_chatbot_v2/screens/chatbot.dart';
+import 'package:santika_chatbot_v2/screens/home.dart';
+import 'package:santika_chatbot_v2/screens/splash.dart';
 
 void main() => runApp(MyApp());
 
