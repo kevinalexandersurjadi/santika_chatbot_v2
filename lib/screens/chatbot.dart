@@ -1,13 +1,17 @@
+import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:santika_chatbot_v2/config/api.dart';
+import 'package:santika_chatbot_v2/consts/assets.dart';
 import 'package:santika_chatbot_v2/models/chat_log.dart';
 import 'package:santika_chatbot_v2/consts/color.dart';
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:santika_chatbot_v2/utils/database.dart';
+import 'package:santika_chatbot_v2/widgets/appbar.dart';
+import 'package:santika_chatbot_v2/widgets/chip.dart';
 
 class ChatScreen extends StatefulWidget{
   @override
@@ -32,7 +36,7 @@ class ChatScreenState extends State<ChatScreen>{
     print(chatLog);
     if(length > 0){
       for(int i=0; i<length; i++){
-        ChatMessage message = new ChatMessage(text: chatLog[i].message, who: chatLog[i].who,);
+        ChatMessage message = new ChatMessage(text: chatLog[i].message, who: chatLog[i].who, time: chatLog[i].time,);
         setState(() {
           _message.insert(0, message);
         });
@@ -68,7 +72,7 @@ class ChatScreenState extends State<ChatScreen>{
 
   _start() async {
     await _getInitData();
-    ChatMessage initialMessage = ChatMessage(text: 'Hi, saya Bershca! Silakan tanyakan informasi yang ingin Anda ketahui.', who: 1);
+    ChatMessage initialMessage = ChatMessage(text: 'Hi, saya Bershca! Silakan tanyakan informasi yang ingin Anda ketahui.', who: 1, time: _makeTimestamp(),);
     Future.delayed(Duration(milliseconds: 750), () {
       setState(() {
         _message.insert(0, initialMessage);
@@ -85,174 +89,84 @@ class ChatScreenState extends State<ChatScreen>{
 
     return new Scaffold(
       backgroundColor: Colors.white,
-      appBar: new AppBar(
-        title: new Text(
-          "Bershca",
-          style: TextStyle(
-            fontFamily: 'Montserrat'
-          ),
-        ),
-        backgroundColor: BershcaColors.greenHarmony,
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.info_outline), onPressed: () {
-            Navigator.pushNamed(context, '/about');
-          },),
-        ],
-      ),
-      body: new Column(
-        children: <Widget>[
-          new Flexible(
-            child: new ListView.builder(
-              padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
-              reverse: true,
-              itemBuilder: (_, int index) => _message[index],
-              itemCount: _message.length,
-            ),
-          ),
-          //new Divider(height: 1.0,),
-          new Container(
-            width: width,
-            margin: new EdgeInsets.only(top: 8.0, bottom: 8.0),
-            child: SingleChildScrollView(
-              //controller: _hideSuggestion,
-              scrollDirection: Axis.horizontal,
-              child: new Center(
-                child: new Row(
-                  textDirection: TextDirection.ltr,
-                  children: <Widget>[
-                    new GestureDetector(
-                      onTap: (){
-                        _textController.text = "Saya ingin bertanya tentang Santika Premiere Slipi";
-                        setState(() {
-                          _isComposing = true;
-                        });
-                      },
-                      child: new Container(
-                        //width: width/3,
-                        padding: new EdgeInsets.all(8.0),
-                        margin: new EdgeInsets.only(right: 8.0, left: 8.0),
-                        decoration: new BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: new BorderRadius.circular(50.0),
-                          border: new Border.all(
-                            color: BershcaColors.purpleHighTech,
-                            width: 1.0,
-                            style: BorderStyle.solid
-                          )
-                        ),
-                        child: new Text(
-                          "Tentang Santika Premiere Slipi",
-                          overflow: TextOverflow.ellipsis,
-                          style: new TextStyle(
-                            fontFamily: 'Montserrat',
-                            color: BershcaColors.purpleHighTech,
-                          ),
-                        ),
-                      ),
-                    ),
-                    new GestureDetector(
-                      onTap: () {
-                        _textController.text = "Saya ingin bertanya tentang Kamar hotel";
-                        setState(() {
-                          _isComposing = true;
-                        });
-                      },
-                      child: new Container(
-                        //width: width/3,
-                        padding: new EdgeInsets.all(8.0),
-                        margin: new EdgeInsets.only(right: 8.0),
-                        decoration: new BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: new BorderRadius.circular(50.0),
-                          border: new Border.all(
-                              color: BershcaColors.purpleHighTech,
-                              width: 1.0,
-                              style: BorderStyle.solid
-                          )
-                        ),
-                        child: new Text(
-                          "Kamar Hotel",
-                          overflow: TextOverflow.ellipsis,
-                          style: new TextStyle(
-                            fontFamily: 'Montserrat',
-                            color: BershcaColors.purpleHighTech,
-                          ),
-                        ),
-                      ),
-                    ),
-                    new GestureDetector(
-                      onTap: () {
-                        _textController.text = "Saya ingin bertanya tentang Ruang rapat";
-                        setState(() {
-                          _isComposing = true;
-                        });
-                      },
-                      child: new Container(
-                        //width: width/3,
-                        padding: new EdgeInsets.all(8.0),
-                        margin: new EdgeInsets.only(right: 8.0),
-                        decoration: new BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: new BorderRadius.circular(50.0),
-                          border: new Border.all(
-                              color: BershcaColors.purpleHighTech,
-                              width: 1.0,
-                              style: BorderStyle.solid
-                          )
-                        ),
-                        child: new Text(
-                          "Ruang Rapat",
-                          overflow: TextOverflow.ellipsis,
-                          style: new TextStyle(
-                            fontFamily: 'Montserrat',
-                            color:BershcaColors.purpleHighTech,
-                          ),
-                        ),
-                      ),
-                    ),
-                    new GestureDetector(
-                      onTap: (){
-                        _textController.text = "Saya ingin melakukan Cek kamar";
-                        setState(() {
-                          _isComposing = true;
-                        });
-                      },
-                      child: new Container(
-                        //width: width/3,
-                        padding: new EdgeInsets.all(8.0),
-                        margin: new EdgeInsets.only(right: 8.0),
-                        decoration: new BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: new BorderRadius.circular(50.0),
-                          border: new Border.all(
-                              color: BershcaColors.purpleHighTech,
-                              width: 1.0,
-                              style: BorderStyle.solid
-                          )
-                        ),
-                        child: new Text(
-                          "Cek Kamar",
-                          overflow: TextOverflow.ellipsis,
-                          style: new TextStyle(
-                            fontFamily: 'Montserrat',
-                            color: BershcaColors.purpleHighTech,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+      appBar: new BershcaAppbar(title: "Bershca Chat Room", canBack: true, withInfo: true,),
+      body: SafeArea(
+        top: false,
+        bottom: true,
+        child: new Column(
+          children: <Widget>[
+            new Flexible(
+              child: new ListView.builder(
+                padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+                reverse: true,
+                itemBuilder: (_, int index) => _message[index],
+                itemCount: _message.length,
               ),
             ),
-        ),
-          new Divider(height: 1.0,),
-          new Container(
-            decoration: new BoxDecoration(
-              color: Theme.of(context).cardColor
-            ),
-            child: _buildTextComposer(),
+            //new Divider(height: 1.0,),
+            new Container(
+              width: width,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: BershcaColors.gradient1),
+              ),
+              padding: new EdgeInsets.symmetric(vertical: 12.0),
+              child: SingleChildScrollView(
+                //controller: _hideSuggestion,
+                scrollDirection: Axis.horizontal,
+                child: new Center(
+                  child: new Row(
+                    textDirection: TextDirection.ltr,
+                    children: <Widget>[
+                      new Chips(
+                        onTap: (){
+                          _textController.text = "Saya ingin bertanya tentang Santika Premiere Slipi";
+                          setState(() {
+                            _isComposing = true;
+                          });
+                        },
+                        text: "Tentang Santika Premiere Slipi",
+                      ),
+                      new Chips(
+                        onTap: () {
+                          _textController.text = "Saya ingin bertanya tentang Kamar hotel";
+                          setState(() {
+                            _isComposing = true;
+                          });
+                        },
+                        text: "Kamar Hotel",
+                      ),
+                      new Chips(
+                        onTap: () {
+                          _textController.text = "Saya ingin bertanya tentang Ruang rapat";
+                          setState(() {
+                            _isComposing = true;
+                          });
+                        },
+                        text: "Ruang Rapat"
+                      ),
+                      new Chips(
+                        onTap: (){
+                          _textController.text = "Saya ingin melakukan Cek kamar";
+                          setState(() {
+                            _isComposing = true;
+                          });
+                        },
+                        text: "Cek Kamar",
+                      ),
+                    ],
+                  ),
+                ),
+              ),
           ),
-        ],
+            new Divider(height: 1.0,),
+            new Container(
+              decoration: new BoxDecoration(
+                color: Theme.of(context).cardColor
+              ),
+              child: _buildTextComposer(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -261,9 +175,16 @@ class ChatScreenState extends State<ChatScreen>{
     return new IconTheme(
       data: new IconThemeData(color: Theme.of(context).accentColor),
       child: new Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        margin: const EdgeInsets.all(12.0),
         child: Row(
           children: <Widget>[
+            new Image.asset(
+              BershcaAssets.messageIcon,
+              width: 28.0,
+            ),
+            new SizedBox(
+              width: 16.0,
+            ),
             new Flexible(
               child: new TextField(
                 controller: _textController,
@@ -274,22 +195,23 @@ class ChatScreenState extends State<ChatScreen>{
                 },
                 onSubmitted: _handleSubmitted,
                 decoration: new InputDecoration.collapsed(
-                  hintText: "Send a message",
+                  hintText: "Send a message...",
                   hintStyle: new TextStyle(
-                    fontFamily: 'Montserrat',
-                    color: Colors.black,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFBCBEC0),
                   )
                 ),
               ),
             ),
             new Container(
               //margin: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: new IconButton(
-                color: Colors.black,
-                disabledColor: Colors.black,
-                icon: new Icon(Icons.send),
-                onPressed: _isComposing ? () => _handleSubmitted(_textController.text) : null,
-                // What to do after send icon is pressed
+              child: new InkWell(
+                onTap: _isComposing ? () => _handleSubmitted(_textController.text) : null,
+                child: Image.asset(
+                  BershcaAssets.sendIcon,
+                  width: 28.0,
+                ),
               ),
             ),
           ],
@@ -301,7 +223,7 @@ class ChatScreenState extends State<ChatScreen>{
   void _handleSubmitted(String text){
     _textController.clear();
 
-    ChatMessage message = new ChatMessage(text: text, who: 0,);
+    ChatMessage message = new ChatMessage(text: text, who: 0, time: _makeTimestamp());
     _saveToDB(0, text);
 
     ChatMessage messageResponse;
@@ -352,7 +274,7 @@ class ChatScreenState extends State<ChatScreen>{
 
           mResponse += message[ul];
 
-          messageResponse = new ChatMessage(text: mResponse, who: 1,);
+          messageResponse = new ChatMessage(text: mResponse, who: 1, time: _makeTimestamp());
           _saveToDB(1, mResponse);
           _message.insert(0, messageResponse);
 
@@ -373,7 +295,7 @@ class ChatScreenState extends State<ChatScreen>{
             mResponse += "\n\n" + messageFooter[0];
           }
 
-          messageResponse = new ChatMessage(text: mResponse, who: 1,);
+          messageResponse = new ChatMessage(text: mResponse, who: 1, time: _makeTimestamp());
           _saveToDB(1, mResponse);
           _message.insert(0, messageResponse);
         }
@@ -403,7 +325,7 @@ class ChatScreenState extends State<ChatScreen>{
 
           }
 
-          messageResponse = new ChatMessage(text: mResponse, who: 1,);
+          messageResponse = new ChatMessage(text: mResponse, who: 1, time: _makeTimestamp());
           _saveToDB(1, mResponse);
           _message.insert(0, messageResponse);
         }
@@ -424,47 +346,65 @@ const String _botName = "Chatbot"; //nama bot nya
 
 class ChatMessage extends StatelessWidget{
 
-  ChatMessage({this.text, this.who});
+  ChatMessage({this.text, this.who, this.time});
   final String text;
   final int who;
+  final String time;
+
 
   @override
   Widget build(BuildContext context) {
-    final c_width = MediaQuery.of(context).size.width * (who == 0 ? 0.6 : 0.9);
-
-    return new Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      //width: MediaQuery.of(context).size.width*0.5,
-      child: new Row(
-        textDirection: who == 0 ? TextDirection.rtl : TextDirection.ltr,
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        crossAxisAlignment: who == 0 ? CrossAxisAlignment.start : CrossAxisAlignment.end,
         children: <Widget>[
-          Container(
-            width: c_width,
-            padding: new EdgeInsets.all(10.0),
-            decoration: new BoxDecoration(
-              color: who == 1 ? BershcaColors.brownWarm : BershcaColors.greenHarmony,
-              borderRadius: new BorderRadius.all(Radius.circular(10.0)),
-            ),
-            child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                //new Text(who == 1 ? _botName : _name, style: Theme.of(context).textTheme.subhead),
-                new Container(
-                  margin: const EdgeInsets.only(top: 5.0),
-                  child: new Text(
+          who == 0 ? new CircleAvatar(
+            backgroundImage: AssetImage(BershcaAssets.defaultProfilePicture),
+          ) : Container(),
+          who == 0 ? new SizedBox(
+            width: 8.0,
+          ) : Container(),
+          new Expanded(
+            child: new Bubble(
+              nip: who == 1 ? BubbleNip.rightBottom : BubbleNip.leftTop,
+              color: who == 1 ? BershcaColors.greenHarmony : Colors.white,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
                     text,
                     style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 15.0,
-                      color: Colors.white,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18.0,
+                      color: who == 1 ? Colors.white : Colors.black,
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 8.0,
+                  ),
+                  Text(
+                    time,
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.0,
+                      color: who == 1 ? Colors.white : Color(0xFF6D6D6D),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
-        ]
+          who == 1 ? new SizedBox(
+            width: 8.0,
+          ) : Container(),
+          who == 1 ? new CircleAvatar(
+            backgroundColor: Colors.transparent,
+            backgroundImage: AssetImage(BershcaAssets.bershcaLogo),
+          ) : Container()
+        ],
       ),
     );
   }
@@ -478,12 +418,13 @@ void _saveToDB(int who, String message){
 }
 
 String _makeTimestamp(){
-  String day = DateTime.now().day.toString();
-  String month = DateTime.now().month.toString();
-  String year = DateTime.now().year.toString();
-  String hour = DateTime.now().hour.toString();
-  String minute = DateTime.now().minute.toString();
-  String second = DateTime.now().second.toString();
+  DateTime date = DateTime.now();
+  String day = date.day.toString();
+  String month = date.month.toString();
+  String year = date.year.toString();
+  String hour = date.hour.toString();
+  String minute = date.minute.toString();
+  String second = date.second.toString();
 
   print("Timestamp to be inserted to db: " + year.toString() + "-" + month.toString() + "-" + day.toString()
       + " " + hour.toString() + ":" + minute.toString() + ":" + second.toString());

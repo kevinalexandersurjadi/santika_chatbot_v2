@@ -61,7 +61,7 @@ class DBHelper{
     List<ChatLog> chatLogs = new List();
 
     for(int i=0; i<result.length; i++){
-      chatLogs.add(new ChatLog(result[i]['who'], result[i]['message']));
+      chatLogs.add(new ChatLog(result[i]['who'], result[i]['message'], result[i]['time']));
     }
 
     print("Print in DB: " + chatLogs.length.toString());

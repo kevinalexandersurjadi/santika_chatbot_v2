@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:santika_chatbot_v2/consts/assets.dart';
-import 'package:santika_chatbot_v2/widgets/button.dart';
 
 class HomeScreen extends StatelessWidget {
 

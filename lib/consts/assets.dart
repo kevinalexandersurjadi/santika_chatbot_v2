@@ -12,4 +12,8 @@ class BershcaAssets {
   static const bershcaVertical5 = 'assets/bershca_vertical_black_text.png';
   static const bershcaVertical6 = 'assets/bershca_vertical_no_border.png';
   static const buttonBackground = 'assets/button_background.png';
+  static const defaultProfilePicture = 'assets/default_profile_picture.png';
+  static const bershcaLogo = 'assets/bershca_logo.png';
+  static const messageIcon = 'assets/message_icon.png';
+  static const sendIcon = 'assets/send_icon.png';
 }
