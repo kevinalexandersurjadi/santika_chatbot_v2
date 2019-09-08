@@ -4,6 +4,7 @@ class BershcaAssets {
   static const bershcaHorizontal3 = 'assets/bershca_horizontal_purple_high_tech_text.png';
   static const bershcaHorizontal4 = 'assets/bershca_horizontal_white_text.png';
   static const bershcaHorizontal5 = 'assets/bershca_horizontal_black_text.png';
+  static const bershcaHorizontal6 = 'assets/bershca_horizontal_no_border.png';
   static const bershcaVertical = 'assets/bershca_vertical.png';
   static const bershcaVertical2 = 'assets/bershca_vertical_brown_warm_text.png';
   static const bershcaVertical3 = 'assets/bershca_vertical_purple_high_tech_text.png';

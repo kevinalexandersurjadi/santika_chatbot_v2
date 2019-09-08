@@ -23,13 +23,9 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(32.0),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: BershcaColors.gradient1,
-          )
-        ),
+        color: Colors.white,
         child: Center(
-          child: Image.asset(BershcaAssets.bershcaHorizontal4),
+          child: Image.asset(BershcaAssets.bershcaHorizontal6),
         ),
       )
     );
