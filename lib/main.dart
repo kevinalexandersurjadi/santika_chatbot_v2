@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:santika_chatbot_v2/screens/how_to_use.dart';
 import 'package:santika_chatbot_v2/screens/about.dart';
 import 'package:santika_chatbot_v2/screens/chatbot.dart';
 import 'package:santika_chatbot_v2/screens/home.dart';
@@ -14,6 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/chat': (context) => ChatScreen(),
+        '/home': (context) => HomeScreen(),
         '/about': (context) => AboutScreen(),
       },
       title: 'Bershca',

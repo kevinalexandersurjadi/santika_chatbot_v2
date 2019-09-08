@@ -80,6 +80,20 @@ flutter:
        fonts:
          - asset: assets/Montserrat-Black.ttf
          - asset: assets/Montserrat-Medium.ttf
+     - family: Avenir Book
+       fonts:
+         - asset: fonts/Avenir-Book-01.ttf
+     - family: Avenir
+       fonts:
+         - asset: fonts/Avenir-Roman-12.ttf
+         - asset: fonts/Avenir-Medium-09.ttf
+           weight: 500
+         - asset: fonts/Avenir-Heavy-05.ttf
+           weight: 800
+     - family: Roboto
+       fonts:
+         - asset: fonts/Roboto-Bold.ttf
+           weight: 700
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

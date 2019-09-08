@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:santika_chatbot_v2/consts/assets.dart';
-import 'package:santika_chatbot_v2/consts/color.dart';
 import 'package:santika_chatbot_v2/widgets/button.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,43 +8,59 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: BershcaColors.gradient1,
-            /// Alternative
-            /// colors: BershcaColors.gradient5
-          )
-        ),
+        color: Colors.white,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(
-                BershcaAssets.bershcaVertical4,
-                /// Alternative
-                /// BershcaAssets.bershcaVertical4
+                BershcaAssets.bershcaVertical6,
                 width: 180.0,
+              ),
+              SizedBox(
+                height: 32.0,
+              ),
+              Text(
+                'Welcome to',
+                style: TextStyle(
+                  fontFamily: 'Avenir',
+                  fontWeight: FontWeight.w800,
+                  fontSize: 28.0,
+                  color: Color(0xFFA7A9AC)
+                ),
               ),
               SizedBox(
                 height: 16.0,
               ),
-              BershcaButton(
-                onPressed: () {
+              InkWell(
+                onTap: () {
                   Navigator.pushNamed(context, '/chat');
                 },
-                text: 'Start Chatting',
-              ),
-//              BershcaButton(
-//                onPressed: () {
-//                  Navigator.pushNamed(context, '/howto');
-//                },
-//                text: 'How to Use',
-//              ),
-              BershcaButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/about');
-                },
-                text: 'About',
+                child: Stack(
+                  children: <Widget>[
+                    Image.asset(
+                      BershcaAssets.buttonBackground,
+                      width: 160.0,
+                    ),
+                    Positioned(
+                      top: 0,
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Text(
+                          'Chat',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24.0,
+                            color: Color(0xFFE59912)
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ],
           ),

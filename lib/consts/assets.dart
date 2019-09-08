@@ -10,4 +10,6 @@ class BershcaAssets {
   static const bershcaVertical3 = 'assets/bershca_vertical_purple_high_tech_text.png';
   static const bershcaVertical4 = 'assets/bershca_vertical_white_text.png';
   static const bershcaVertical5 = 'assets/bershca_vertical_black_text.png';
+  static const bershcaVertical6 = 'assets/bershca_vertical_no_border.png';
+  static const buttonBackground = 'assets/button_background.png';
 }
